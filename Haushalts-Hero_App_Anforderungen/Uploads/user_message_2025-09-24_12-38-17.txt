@@ -1,0 +1,106 @@
+Vollständige Entwicklungsanforderung: „Haushalts-Hero“ App (Swift MVP)
+Dieses Dokument beschreibt die Anforderungen für die Entwicklung eines Minimum Viable Product (MVP) der „Haushalts-Hero“-App. Der Fokus liegt auf einer nativen iOS-Implementierung mit Swift und SwiftUI.
+1. Vision, Zielsetzung und Positionierung
+• Vision: Die „Haushalts-Hero“-App transformiert die alltägliche Hausarbeit von einer lästigen Pflicht in eine motivierende, spielerische und nachweisbare Tätigkeit.
+• Kurzformel (User Value): Anerkennung + Spaß + Coaching.
+• Ziel aus Nutzersicht:
+    ◦ Beweis & Anerkennung: Nutzende können objektiv nachweisen, dass und wie gut sie geputzt haben.
+    ◦ Motivation: Durch Gamification-Elemente wie Punkte, Avatare und Highscores macht das Putzen mehr Spaß.
+    ◦ Lernen & Kompetenz: Die App fungiert als Coach, der Tipps und Tricks für eine effizientere Reinigung vermittelt.
+    ◦ Fairness: In Wohngemeinschaften (WGs) und Partnerschaften wird die Verteilung der Hausarbeit transparent und messbar.
+• Ziel aus Business-Sicht:
+    ◦ Produktpositionierung: Die App wird als „MyFitnessPal für den Haushalt“ etabliert, das Messung, Coaching und Gamification kombiniert.
+    ◦ Differenzierung: Der entscheidende Unterschied zu bestehenden To-Do-Listen ist die KI-basierte Vorher/Nachher-Beweisführung.
+    ◦ Monetarisierung: Ein Freemium-Modell mit Premium-Funktionen (Avatare, Challenges) und potenziellen Kooperationen mit Herstellern von Reinigungsmitteln.
+2. Zielgruppe
+• Primäre Zielgruppe: WGs (18–35 Jahre), Paare (25–45 Jahre) und Familien mit Teenagern, die nach einer fairen und motivierenden Lösung für Haushaltsaufgaben suchen. Auch Menschen mit ADHS oder Autismus, die von Struktur und direktem Feedback profitieren, sind eine wichtige Zielgruppe.
+• Sekundäre Zielgruppe: Vielbeschäftigte Berufstätige („Busy Professionals“) und Gamification-affine Nutzer, die Routinen spielerisch gestalten möchten.
+3. MVP-Anforderungen und Kernfunktionen
+Das MVP konzentriert sich auf die von Ihnen gewünschten Kernmodule für drei spezifische Aufgabenbereiche.
+• 1. Kategorien: Das MVP unterstützt die folgenden drei Reinigungsaufgaben:
+    ◦ Spiegel putzen
+    ◦ Toilette putzen
+    ◦ Zimmer aufräumen
+• 2. Scoring & Visioning (Kerntechnologie):
+    ◦ Vorher/Nachher-Vergleich: Der Nutzer nimmt vor und nach der Reinigung ein Foto auf.
+    ◦ KI-Bewertung: Eine On-Device-KI analysiert die Bilder und vergibt einen Sauberkeits-Score von 0–100.
+    ◦ Kategoriespezifische Kriterien: Die KI bewertet je nach Aufgabe unterschiedliche Merkmale:
+        ▪ Spiegel: Reduzierung von Streifen, Qualität der Reflexion.
+        ▪ Toilette: Entfernung von Flecken und Verfärbungen.
+        ▪ Zimmer aufräumen: Reduzierung von Objekten auf dem Boden/Oberflächen („Clutter“), Zunahme freier Flächen.
+• 3. Avatar & Gamification:
+    ◦ Street-Fighter-Stil: Ein animierter 2D-Avatar reagiert auf das Reinigungsergebnis.
+    ◦ Avatar-Zustände: Mindestens zwei Posen: eine neutrale „Idle“-Pose und eine „Siegespose“ bei erfolgreichem Abschluss.
+    ◦ Core Loop: Aufgabe wählen → Fotos machen → Score und Avatar-Animation erhalten → Punkte sammeln.
+    ◦ Features: Ein Highscore-System (Leaderboard) für die WG/Partner und erste Abzeichen („Badges“) wie „Mirror Master“.
+• 4. Coaching:
+    ◦ KI-Putzcoach: Ein GPT-Wrapper beantwortet grundlegende Fragen zur Reinigung der drei Kategorien.
+    ◦ Anleitungen: Die KI liefert kurze Schritt-für-Schritt-Anleitungen als Text, optional mit Links zu Bildern oder Videos.
+4. Architektur und Technologiestack (Swift-Fokus)
+Obwohl Cross-Platform-Frameworks erwähnt wurden, ist für ein Apple-First-MVP ein nativer Swift-Ansatz überlegen, da er die beste Performance, UX und Integration in das Apple-Ökosystem (Kamera, Datenschutz) bietet.
+• Frontend (iOS App): SwiftUI für eine moderne, deklarative UI.
+• Vision-Pipeline (On-Device): Apple Vision Framework & CoreML zur Implementierung der Bildanalyse direkt auf dem Gerät. Dies ist datenschutzfreundlich und schnell. Anstelle von TFLite/ONNX werden CoreML-Modelle genutzt.
+• Text-to-Speech (TTS, On-Device): AVSpeechSynthesizer von Apple für die Sprachausgabe. Dies ist kostenlos und erfordert keine externen API-Calls.
+• Backend: Python (FastAPI) für Benutzerauthentifizierung, Leaderboard-Management und Synchronisierung der Metadaten (Scores, Badges).
+• LLM/VLM-Wrapper: Eine serverseitige Schnittstelle zu GPT-4o-mini für das Coaching-Modul, da es eine kostengünstige und leistungsstarke multimodale Option ist.
+• Datenschutz: Bilder werden standardmäßig nur lokal auf dem Gerät verarbeitet und verschlüsselt gespeichert (z.B. mittels Keychain). Nur anonymisierte Metadaten (Scores, Badges) werden mit dem Backend synchronisiert.
+5. Task-Breakdown: MVP-Entwicklungsplan (6 Wochen / Sprints)
+Dieser Plan orientiert sich an der vorgeschlagenen Roadmap.
+• Sprint 1-2: Grundgerüst und erster Flow
+    ◦ Ziel: Eine funktionierende App-Shell, die den Kern-Loop ohne komplexe KI ermöglicht.
+    ◦ Tasks: UI-Gerüst in SwiftUI, Zustandsautomat (FSM) für Tasks, Kamera-Integration, einfacher Bildvergleich (z.B. Helligkeits-Delta), Avatar-Stub (Platzhalter).
+• Sprint 3-4: Scoring-Intelligenz und Gamification
+    ◦ Ziel: Eine erste intelligente Bewertung und sichtbare Belohnungen.
+    ◦ Tasks: Integration von leichten CoreML-Modellen zur ROI-Erkennung (Region-of-Interest), Implementierung der Scoring-Logik v1, Anbindung des Leaderboards an das Backend, Implementierung der Avatar-Animationen (Sprite-Sheets).
+• Sprint 5: Coaching und Datenschutz
+    ◦ Ziel: Die App um Lerninhalte erweitern und das Vertrauen der Nutzer sicherstellen.
+    ◦ Tasks: Entwicklung des Coaching-Moduls (GPT-Wrapper-Anbindung), Implementierung der Datenschutz-Flows (Consent-Screens, lokale Verschlüsselung), Einbau von Telemetrie (z.B. via Firebase Analytics).
+• Sprint 6: Beta-Phase und Kalibrierung
+    ◦ Ziel: Feedback sammeln und die Bewertungsqualität verbessern.
+    ◦ Tasks: Vorbereitung der App für eine geschlossene Beta (via TestFlight), Sammeln von Feedback von 10–20 Haushalten, Kalibrierung der Scoring-Modelle, Bugfixing.
+6. Detaillierte Task-Beschreibung (Auszug „Was ist zu tun?“)
+• Task: Scoring-Logik implementieren (Sprint 3-4)
+    ◦ Was ist zu tun: Die in Pseudocode beschriebene Logik in Swift umsetzen.
+        1. Vorab-Checks: Bildqualität (Unschärfe, Helligkeit) prüfen.
+        2. Bildausrichtung: Vorher/Nachher-Bilder mittels Homographie ausrichten.
+        3. ROI-Erkennung: Ein CoreML-Modell (vortrainiert mit Datensätzen wie ADE20K) nutzen, um die relevanten Bereiche (Spiegel, Toilettenschüssel, Boden) zu segmentieren.
+        4. Merkmalsextraktion: Algorithmen für Streifen-Erkennung (Spiegel), Flecken-Analyse (Toilette) und Objektzählung (Zimmer) implementieren.
+        5. Delta-Berechnung & Scoring: Die Differenz der Merkmale berechnen und in einen Gesamtscore von 0-100 umrechnen, inklusive Boni und Abzügen.
+        6. Erklärungen generieren: Basierend auf den Sub-Scores kurze Texthinweise für den Nutzer erstellen („Armatur glänzt, aber Ecke unten links noch fleckig“).
+• Task: Coaching-Modul anbinden (Sprint 5)
+    ◦ Was ist zu tun: Eine Schnittstelle zur GPT-API erstellen.
+        1. API-Schnittstelle definieren: Einen REST-Endpunkt im Backend (z.B. /v1/coach/plan) nach dem Vorbild des Schemas erstellen.
+        2. Prompt-Template implementieren: Das detaillierte Prompt-Template serverseitig mit den Daten aus der App (Kategorie, Score, etc.) befüllen.
+        3. UI-Integration: In der App einen Button "Wie putze ich X?" einfügen, der bei Klick die Anfrage an das Backend sendet und die formatierte Antwort anzeigt.
+        4. Offline-Fallback: Statische "Cheatsheets" für jede Kategorie in die App integrieren, falls keine Internetverbindung besteht.
+7. Definition of Done (DoD) für das MVP
+Das MVP gilt als abgeschlossen, wenn alle folgenden Kriterien erfüllt sind:
+• Funktionale Kriterien:
+    ◦ Alle drei Kategorien (Spiegel, Toilette, Zimmer) sind im Kern-Loop von der Fotoaufnahme bis zum Scoring funktionsfähig.
+    ◦ Der Avatar zeigt mindestens eine Sieges- und eine neutrale Pose basierend auf dem Score.
+    ◦ Das Leaderboard zeigt die Punktzahlen innerhalb eines Haushalts an.
+    ◦ Das Coaching-Modul liefert für jede Kategorie eine textbasierte Anleitung.
+    ◦ Der Datenschutz-Flow (lokale Speicherung, Consent) ist implementiert.
+• Qualitäts- und Performance-Kriterien (SLOs):
+    ◦ Die Latenz der On-Device-Vision-Pipeline (p95) liegt bei ≤ 120 ms pro Foto.
+    ◦ Die App hat eine Absturzrate von ≤ 0.5 % pro Tag.
+    ◦ Die Fehlklassifikationsrate bei manuell überprüften Streitfällen liegt bei ≤ 20 %.
+• Geschäftliche Erfolgsmetriken (Launch-KPIs):
+    ◦ Die Aktivierungsrate (Anteil der Nutzer, die nach dem Onboarding eine Task abschließen) liegt bei ≥ 60 %.
+    ◦ Die D7-Retention (Anteil der Nutzer, die 7 Tage nach Installation zurückkehren) liegt bei ≥ 30 %.
+    ◦ Die Dispute-Rate (Anteil der bewerteten Tasks, bei denen Nutzer Feedback geben) liegt bei < 10 %.
+Text eingeben…
+3 Quellen
+
+
+
+Studio
+Audio-Zusammenfassung
+Videoübersicht
+Mindmap
+Berichte
+Karteikarten
+Quiz
+Hier wird die Ausgabe von Studio gespeichert.
+Nachdem Sie Quellen hinzugefügt haben, klicken Sie, um Audio-Zusammenfassungen, Arbeitshilfen, Mindmaps und mehr hinzuzufügen.
+NotebookLM kann Fehler machen, überprüfen Sie daher die Antworten.
