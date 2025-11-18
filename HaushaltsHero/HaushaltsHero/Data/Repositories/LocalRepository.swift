@@ -374,64 +374,116 @@ class LocalRepository: AppRepository {
     }
 
     private func getDefaultCoachingTips() -> [CoachTip] {
-        return [
-            CoachTip(
-                title: "Streifenfrei putzen",
-                content: "Verwende Mikrofasertücher und arbeite in kreisenden Bewegungen für streifenfreie Ergebnisse.",
-                triggerRules: [
-                    TriggerRule(subscoreName: "Streifenfreiheit", minValue: nil, maxValue: 60, confidenceThreshold: nil)
-                ],
-                category: .mirror,
-                priority: 10
-            ),
-            CoachTip(
-                title: "Gründliche Reinigung",
-                content: "Achte auf Ecken und schwer erreichbare Stellen. Eine gründliche Reinigung zahlt sich aus!",
-                triggerRules: [
-                    TriggerRule(subscoreName: "Detailgrad", minValue: nil, maxValue: 70, confidenceThreshold: nil)
-                ],
-                category: nil,
-                priority: 8
-            ),
-            CoachTip(
-                title: "Perfekt gemacht!",
-                content: "Hervorragende Arbeit! Deine Technik ist ausgezeichnet.",
-                triggerRules: [
-                    TriggerRule(subscoreName: nil, minValue: 85, maxValue: nil, confidenceThreshold: 0.8)
-                ],
-                category: nil,
-                priority: 5
-            )
-        ]
+        // Load from JSON file
+        return loadCoachingTipsFromJSON() ?? []
+    }
+
+    private func loadCoachingTipsFromJSON() -> [CoachTip]? {
+        guard let url = Bundle.main.url(forResource: "coaching_tips", withExtension: "json", subdirectory: "Resources/Content") else {
+            print("Warning: coaching_tips.json not found")
+            return nil
+        }
+
+        do {
+            let data = try Data(contentsOf: url)
+            let decoder = JSONDecoder()
+
+            // Custom JSON structure that matches our file format
+            struct JSONCoachTip: Codable {
+                let id: String
+                let title: String
+                let content: String
+                let triggerRules: [JSONTriggerRule]
+                let category: String?
+                let priority: Int
+            }
+
+            struct JSONTriggerRule: Codable {
+                let subscoreName: String?
+                let minValue: Int?
+                let maxValue: Int?
+                let confidenceThreshold: Double?
+            }
+
+            let jsonTips = try decoder.decode([JSONCoachTip].self, from: data)
+
+            return jsonTips.map { jsonTip in
+                let category: ChallengeCategory? = {
+                    guard let catString = jsonTip.category else { return nil }
+                    return ChallengeCategory(rawValue: catString)
+                }()
+
+                let rules = jsonTip.triggerRules.map { jsonRule in
+                    TriggerRule(
+                        subscoreName: jsonRule.subscoreName,
+                        minValue: jsonRule.minValue,
+                        maxValue: jsonRule.maxValue,
+                        confidenceThreshold: jsonRule.confidenceThreshold
+                    )
+                }
+
+                return CoachTip(
+                    id: UUID(),
+                    title: jsonTip.title,
+                    content: jsonTip.content,
+                    triggerRules: rules,
+                    category: category,
+                    priority: jsonTip.priority
+                )
+            }
+        } catch {
+            print("Error loading coaching tips from JSON: \(error)")
+            return nil
+        }
     }
 
     private func getDefaultMicroLearningCards() -> [MicroLearningCard] {
-        return [
-            MicroLearningCard(
-                title: "Die perfekte Spiegel-Technik",
-                content: "Beginne von oben nach unten und verwende einen Glasreiniger mit Alkohol für beste Ergebnisse.",
-                imageURL: nil,
-                category: .mirror,
-                tags: ["Technik", "Spiegel"],
-                estimatedReadTime: 45
-            ),
-            MicroLearningCard(
-                title: "Toiletten hygienisch reinigen",
-                content: "Arbeite immer von innen nach außen und verwende separate Tücher für verschiedene Bereiche.",
-                imageURL: nil,
-                category: .toilet,
-                tags: ["Hygiene", "Toilette"],
-                estimatedReadTime: 60
-            ),
-            MicroLearningCard(
-                title: "Effizient aufräumen",
-                content: "Nutze die 4-Boxen-Methode: Behalten, Spenden, Wegwerfen, Umlagern.",
-                imageURL: nil,
-                category: .room,
-                tags: ["Organisation", "Zimmer"],
-                estimatedReadTime: 50
-            )
-        ]
+        // Load from JSON file
+        return loadMicroLearningCardsFromJSON() ?? []
+    }
+
+    private func loadMicroLearningCardsFromJSON() -> [MicroLearningCard]? {
+        guard let url = Bundle.main.url(forResource: "microlearning", withExtension: "json", subdirectory: "Resources/Content") else {
+            print("Warning: microlearning.json not found")
+            return nil
+        }
+
+        do {
+            let data = try Data(contentsOf: url)
+            let decoder = JSONDecoder()
+
+            // Custom JSON structure
+            struct JSONMicroLearningCard: Codable {
+                let id: String
+                let title: String
+                let content: String
+                let imageURL: String?
+                let category: String
+                let tags: [String]
+                let estimatedReadTime: Int
+            }
+
+            let jsonCards = try decoder.decode([JSONMicroLearningCard].self, from: data)
+
+            return jsonCards.compactMap { jsonCard in
+                guard let category = ChallengeCategory(rawValue: jsonCard.category) else {
+                    return nil
+                }
+
+                return MicroLearningCard(
+                    id: UUID(),
+                    title: jsonCard.title,
+                    content: jsonCard.content,
+                    imageURL: jsonCard.imageURL,
+                    category: category,
+                    tags: jsonCard.tags,
+                    estimatedReadTime: jsonCard.estimatedReadTime
+                )
+            }
+        } catch {
+            print("Error loading micro learning cards from JSON: \(error)")
+            return nil
+        }
     }
 
     private func getDefaultSeasons() -> [Season] {

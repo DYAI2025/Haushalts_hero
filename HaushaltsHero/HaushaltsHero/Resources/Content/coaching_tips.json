@@ -1,0 +1,274 @@
+[
+  {
+    "id": "tip-001",
+    "title": "Streifenfrei putzen",
+    "content": "Verwende Mikrofasertücher und arbeite in kreisenden Bewegungen. Für beste Ergebnisse: erst mit feuchtem Tuch reinigen, dann mit trockenem Tuch nachpolieren.",
+    "triggerRules": [
+      {
+        "subscoreName": "Streifenfreiheit",
+        "minValue": null,
+        "maxValue": 60,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": "Spiegel",
+    "priority": 10
+  },
+  {
+    "id": "tip-002",
+    "title": "Gründliche Reinigung",
+    "content": "Achte besonders auf Ecken und schwer erreichbare Stellen. Eine gründliche Reinigung zahlt sich in einem besseren Score aus!",
+    "triggerRules": [
+      {
+        "subscoreName": "Detailgrad",
+        "minValue": null,
+        "maxValue": 70,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": null,
+    "priority": 8
+  },
+  {
+    "id": "tip-003",
+    "title": "Perfekt gemacht!",
+    "content": "Hervorragende Arbeit! Deine Technik ist ausgezeichnet. Weiter so!",
+    "triggerRules": [
+      {
+        "subscoreName": null,
+        "minValue": 85,
+        "maxValue": null,
+        "confidenceThreshold": 0.8
+      }
+    ],
+    "category": null,
+    "priority": 5
+  },
+  {
+    "id": "tip-004",
+    "title": "Klarheit verbessern",
+    "content": "Für eine klarere Oberfläche: Verwende spezielle Glasreiniger mit Alkohol. Diese verhindern Schlieren und sorgen für perfekte Transparenz.",
+    "triggerRules": [
+      {
+        "subscoreName": "Klarheit",
+        "minValue": null,
+        "maxValue": 65,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": "Spiegel",
+    "priority": 9
+  },
+  {
+    "id": "tip-005",
+    "title": "Gleichmäßigkeit ist der Schlüssel",
+    "content": "Arbeite systematisch von oben nach unten und von links nach rechts. So vergisst du keine Stelle!",
+    "triggerRules": [
+      {
+        "subscoreName": "Gleichmäßigkeit",
+        "minValue": null,
+        "maxValue": 70,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": null,
+    "priority": 7
+  },
+  {
+    "id": "tip-006",
+    "title": "Toiletten-Hygiene Tipp",
+    "content": "Verwende separate Reinigungstücher für Innen- und Außenbereiche. Das verhindert Kreuzkontamination und sorgt für bessere Hygiene.",
+    "triggerRules": [
+      {
+        "subscoreName": "Sauberkeit",
+        "minValue": null,
+        "maxValue": 70,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": "Toilette",
+    "priority": 9
+  },
+  {
+    "id": "tip-007",
+    "title": "Detailarbeit zahlt sich aus",
+    "content": "Nutze eine alte Zahnbürste für schwer erreichbare Ecken und Ritzen. Das macht den Unterschied bei der Bewertung!",
+    "triggerRules": [
+      {
+        "subscoreName": "Detailgrad",
+        "minValue": null,
+        "maxValue": 75,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": "Toilette",
+    "priority": 8
+  },
+  {
+    "id": "tip-008",
+    "title": "Glanz-Geheimnis",
+    "content": "Nach der Reinigung mit einem sauberen, trockenen Tuch nachpolieren. Das bringt den Extra-Glanz!",
+    "triggerRules": [
+      {
+        "subscoreName": "Glanz",
+        "minValue": null,
+        "maxValue": 65,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": "Toilette",
+    "priority": 7
+  },
+  {
+    "id": "tip-009",
+    "title": "Ordnung schaffen",
+    "content": "Nutze die 4-Boxen-Methode: Behalten, Spenden, Wegwerfen, Umlagern. So behältst du beim Aufräumen den Überblick!",
+    "triggerRules": [
+      {
+        "subscoreName": "Ordnung",
+        "minValue": null,
+        "maxValue": 70,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": "Zimmer",
+    "priority": 9
+  },
+  {
+    "id": "tip-010",
+    "title": "Vollständigkeit checken",
+    "content": "Bevor du fertig bist: Einmal durch den Raum gehen und alle Bereiche checken. Oft übersieht man Kleinigkeiten!",
+    "triggerRules": [
+      {
+        "subscoreName": "Vollständigkeit",
+        "minValue": null,
+        "maxValue": 70,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": "Zimmer",
+    "priority": 8
+  },
+  {
+    "id": "tip-011",
+    "title": "Niedriger Score? Kein Problem!",
+    "content": "Jeder fängt mal klein an. Mit jedem Durchgang lernst du dazu und verbesserst dich. Dranbleiben lohnt sich!",
+    "triggerRules": [
+      {
+        "subscoreName": null,
+        "minValue": null,
+        "maxValue": 50,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": null,
+    "priority": 6
+  },
+  {
+    "id": "tip-012",
+    "title": "Foto-Qualität verbessern",
+    "content": "Achte auf gute Beleuchtung beim Fotografieren! Natürliches Tageslicht funktioniert am besten.",
+    "triggerRules": [
+      {
+        "subscoreName": null,
+        "minValue": null,
+        "maxValue": null,
+        "confidenceThreshold": 0.6
+      }
+    ],
+    "category": null,
+    "priority": 4
+  },
+  {
+    "id": "tip-013",
+    "title": "Konsistenz aufbauen",
+    "content": "Regelmäßigkeit ist wichtiger als Perfektion. Lieber öfter kleine Challenges als selten große!",
+    "triggerRules": [],
+    "category": null,
+    "priority": 3
+  },
+  {
+    "id": "tip-014",
+    "title": "Zeit effizient nutzen",
+    "content": "Pro-Tipp: Starte mit den schwierigsten Bereichen. Dann wird es mit der Zeit leichter!",
+    "triggerRules": [],
+    "category": null,
+    "priority": 2
+  },
+  {
+    "id": "tip-015",
+    "title": "Top-Performance!",
+    "content": "Wow! Du bist ein echter Profi! Deine Technik und Sorgfalt zahlen sich aus. Du inspirierst andere! 🌟",
+    "triggerRules": [
+      {
+        "subscoreName": null,
+        "minValue": 90,
+        "maxValue": null,
+        "confidenceThreshold": 0.85
+      }
+    ],
+    "category": null,
+    "priority": 10
+  },
+  {
+    "id": "tip-016",
+    "title": "Reiniger richtig dosieren",
+    "content": "Weniger ist oft mehr! Zu viel Reiniger hinterlässt Rückstände. Beginne mit wenig und gib bei Bedarf nach.",
+    "triggerRules": [
+      {
+        "subscoreName": "Streifenfreiheit",
+        "minValue": null,
+        "maxValue": 70,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": "Spiegel",
+    "priority": 7
+  },
+  {
+    "id": "tip-017",
+    "title": "Ökologisch putzen",
+    "content": "Essig und Wasser (1:3) sind eine tolle natürliche Alternative für viele Reinigungsaufgaben. Umweltfreundlich und effektiv!",
+    "triggerRules": [],
+    "category": null,
+    "priority": 1
+  },
+  {
+    "id": "tip-018",
+    "title": "Vergessene Spots",
+    "content": "Häufig übersehen: Lichtschalter, Türklinken und Fensterrahmen. Diese kleinen Details machen den Unterschied!",
+    "triggerRules": [
+      {
+        "subscoreName": "Vollständigkeit",
+        "minValue": null,
+        "maxValue": 75,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": "Zimmer",
+    "priority": 6
+  },
+  {
+    "id": "tip-019",
+    "title": "Motivations-Boost",
+    "content": "Setze dir kleine Belohnungen nach jeder Challenge. Das hält die Motivation hoch!",
+    "triggerRules": [],
+    "category": null,
+    "priority": 2
+  },
+  {
+    "id": "tip-020",
+    "title": "Community-Inspiration",
+    "content": "Teile deine Erfolge! (In zukünftigen Versionen kannst du mit anderen vergleichen und von ihnen lernen)",
+    "triggerRules": [
+      {
+        "subscoreName": null,
+        "minValue": 80,
+        "maxValue": null,
+        "confidenceThreshold": null
+      }
+    ],
+    "category": null,
+    "priority": 3
+  }
+]

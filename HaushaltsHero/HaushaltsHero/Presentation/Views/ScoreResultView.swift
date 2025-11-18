@@ -13,7 +13,9 @@ struct ScoreResultView: View {
     // MARK: - Properties
 
     @ObservedObject var viewModel: ChallengeViewModel
+    @EnvironmentObject var container: AppContainer
     @State private var showSubscores = false
+    @State private var showMicroLearning = false
 
     // MARK: - Body
 
@@ -47,6 +49,43 @@ struct ScoreResultView: View {
                     // Confidence Indicator
                     ConfidenceSection(score: score)
 
+                    // Coaching Section
+                    CoachingSectionView(
+                        score: score,
+                        repository: container.repository
+                    )
+
+                    // Micro Learning Link
+                    Button(action: { showMicroLearning = true }) {
+                        HStack {
+                            Image(systemName: "book.fill")
+                                .foregroundColor(.purple)
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Mehr lernen")
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+
+                                Text("20+ Wissenskarten entdecken")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+
+                            Spacer()
+
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.gray)
+                        }
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color(.systemBackground))
+                                .shadow(color: Color.black.opacity(0.1), radius: 8)
+                        )
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.horizontal)
+
                     // Actions
                     ActionButtons(viewModel: viewModel, score: score)
                 } else if let error = viewModel.errorMessage {
@@ -57,6 +96,9 @@ struct ScoreResultView: View {
         }
         .background(Color(.systemGroupedBackground))
         .navigationBarBackButtonHidden(true)
+        .sheet(isPresented: $showMicroLearning) {
+            MicroLearningView(repository: container.repository)
+        }
     }
 }
 

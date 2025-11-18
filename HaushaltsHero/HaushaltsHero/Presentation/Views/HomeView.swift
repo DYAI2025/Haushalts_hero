@@ -21,6 +21,7 @@ struct HomeView: View {
         case challenge
         case quests
         case coach
+        case learning
     }
 
     // MARK: - Body
@@ -47,6 +48,13 @@ struct HomeView: View {
                     Label("Coach", systemImage: "chart.line.uptrend.xyaxis")
                 }
                 .tag(Tab.coach)
+
+            // Micro Learning Tab
+            MicroLearningView(repository: container.repository)
+                .tabItem {
+                    Label("Wissen", systemImage: "book.fill")
+                }
+                .tag(Tab.learning)
         }
         .accentColor(.blue)
     }
