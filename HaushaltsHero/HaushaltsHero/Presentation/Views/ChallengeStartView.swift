@@ -13,31 +13,37 @@ struct ChallengeStartView: View {
     // MARK: - Properties
 
     @ObservedObject var viewModel: ChallengeViewModel
+    @EnvironmentObject var container: AppContainer
     @State private var showPrivacyView = false
 
     // MARK: - Body
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 30) {
-                // Header
-                VStack(spacing: 10) {
-                    Image(systemName: "sparkles")
-                        .font(.system(size: 60))
-                        .foregroundColor(.blue)
+            ScrollView {
+                VStack(spacing: 30) {
+                    // Header
+                    VStack(spacing: 10) {
+                        Image(systemName: "sparkles")
+                            .font(.system(size: 60))
+                            .foregroundColor(.blue)
 
-                    Text("Neue Challenge")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
+                        Text("Neue Challenge")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
 
-                    Text("Wähle eine Kategorie")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.top, 40)
+                        Text("Wähle eine Kategorie")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.top, 40)
 
-                // Category Selection
-                VStack(spacing: 16) {
+                    // Season Banner
+                    SeasonBannerContainer(repository: container.repository)
+                        .padding(.horizontal)
+
+                    // Category Selection
+                    VStack(spacing: 16) {
                     ForEach(ChallengeCategory.allCases, id: \.self) { category in
                         CategoryCard(category: category) {
                             viewModel.startChallenge(category: category)
@@ -45,8 +51,6 @@ struct ChallengeStartView: View {
                     }
                 }
                 .padding(.horizontal)
-
-                Spacer()
 
                 // Info Text
                 HStack(spacing: 8) {
@@ -70,6 +74,7 @@ struct ChallengeStartView: View {
                     }
                 }
                 .padding(.bottom, 20)
+                }
             }
             .navigationBarHidden(true)
             .sheet(isPresented: $showPrivacyView) {

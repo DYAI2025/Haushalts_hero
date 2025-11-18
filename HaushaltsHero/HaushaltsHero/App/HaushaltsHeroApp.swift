@@ -18,7 +18,7 @@ struct HaushaltsHeroApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            HomeView()
                 .environmentObject(appContainer)
         }
     }
