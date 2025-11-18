@@ -15,6 +15,7 @@ struct ChallengeStartView: View {
     @ObservedObject var viewModel: ChallengeViewModel
     @EnvironmentObject var container: AppContainer
     @State private var showPrivacyView = false
+    @State private var showSettings = false
 
     // MARK: - Body
 
@@ -76,9 +77,21 @@ struct ChallengeStartView: View {
                 .padding(.bottom, 20)
                 }
             }
-            .navigationBarHidden(true)
+            .navigationBarHidden(false)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { showSettings = true }) {
+                        Image(systemName: "gearshape.fill")
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
             .sheet(isPresented: $showPrivacyView) {
                 PrivacyView()
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView(repository: container.repository)
             }
         }
     }

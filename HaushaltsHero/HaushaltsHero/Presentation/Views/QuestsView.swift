@@ -13,11 +13,14 @@ struct QuestsView: View {
     // MARK: - Properties
 
     @StateObject private var viewModel: QuestsViewModel
+    private let repository: AppRepository
     @Environment(\.dismiss) var dismiss
+    @State private var showMonthlyReport = false
 
     // MARK: - Initialization
 
     init(repository: AppRepository) {
+        self.repository = repository
         _viewModel = StateObject(wrappedValue: QuestsViewModel(repository: repository))
     }
 
@@ -38,6 +41,56 @@ struct QuestsView: View {
                             if let stats = viewModel.weeklyStats {
                                 WeeklyStatsCard(stats: stats)
                             }
+
+                            // Monthly Report Button (Pro Preview)
+                            Button(action: { showMonthlyReport = true }) {
+                                HStack {
+                                    Image(systemName: "crown.fill")
+                                        .foregroundColor(.yellow)
+
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        HStack(spacing: 6) {
+                                            Text("Monatsreport")
+                                                .font(.headline)
+                                                .foregroundColor(.primary)
+
+                                            Text("Pro Preview")
+                                                .font(.caption)
+                                                .fontWeight(.semibold)
+                                                .foregroundColor(.yellow)
+                                                .padding(.horizontal, 6)
+                                                .padding(.vertical, 2)
+                                                .background(
+                                                    Capsule()
+                                                        .fill(Color.yellow.opacity(0.2))
+                                                )
+                                        }
+
+                                        Text("Deine Monatsstatistiken ansehen")
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                    }
+
+                                    Spacer()
+
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.gray)
+                                }
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(
+                                            LinearGradient(
+                                                colors: [Color.yellow.opacity(0.1), Color.orange.opacity(0.1)],
+                                                startPoint: .leading,
+                                                endPoint: .trailing
+                                            )
+                                        )
+                                        .shadow(color: Color.black.opacity(0.1), radius: 8)
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .padding(.horizontal)
 
                             // Goal Progress
                             if let goal = viewModel.activeGoal {
@@ -99,6 +152,9 @@ struct QuestsView: View {
             }
             .task {
                 await viewModel.loadData()
+            }
+            .sheet(isPresented: $showMonthlyReport) {
+                MonthlyReportView(repository: repository)
             }
         }
     }
