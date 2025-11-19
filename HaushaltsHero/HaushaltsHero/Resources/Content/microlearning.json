@@ -1,0 +1,182 @@
+[
+  {
+    "id": "learn-001",
+    "title": "Die perfekte Spiegel-Technik",
+    "content": "**Schritt-für-Schritt:**\n\n1. Beginne von oben nach unten\n2. Verwende einen Glasreiniger mit Alkohol\n3. Arbeite in S-förmigen Bewegungen\n4. Poliere mit einem trockenen Mikrofasertuch nach\n\n**Pro-Tipp:** Zeitungspapier eignet sich hervorragend zum Nachpolieren!",
+    "imageURL": null,
+    "category": "Spiegel",
+    "tags": ["Technik", "Spiegel", "Basics"],
+    "estimatedReadTime": 45
+  },
+  {
+    "id": "learn-002",
+    "title": "Toiletten hygienisch reinigen",
+    "content": "**Die richtige Reihenfolge:**\n\n1. Außenbereiche (Spülkasten, Deckel)\n2. Sitzflächen von außen\n3. Innenseite des Deckels\n4. Schüssel innen (zuletzt!)\n\n**Wichtig:** Arbeite IMMER von außen nach innen und verwende separate Tücher!",
+    "imageURL": null,
+    "category": "Toilette",
+    "tags": ["Hygiene", "Toilette", "Basics"],
+    "estimatedReadTime": 50
+  },
+  {
+    "id": "learn-003",
+    "title": "Effizient aufräumen mit System",
+    "content": "**Die 4-Boxen-Methode:**\n\n📦 **Box 1:** Behalten (hat seinen Platz hier)\n💝 **Box 2:** Spenden (noch gut, aber nicht genutzt)\n🗑️ **Box 3:** Wegwerfen (kaputt oder wertlos)\n📍 **Box 4:** Umlagern (gehört woanders hin)\n\n**Zeitersparnis:** Bis zu 50% schneller als unstrukturiertes Aufräumen!",
+    "imageURL": null,
+    "category": "Zimmer",
+    "tags": ["Organisation", "Zimmer", "Methode"],
+    "estimatedReadTime": 55
+  },
+  {
+    "id": "learn-004",
+    "title": "Mikrofasertücher richtig nutzen",
+    "content": "**Farb-Codierung für Hygiene:**\n\n🔵 Blau: Fenster & Spiegel\n🟢 Grün: Bad & Sanitär\n🔴 Rot: Toilette & WC\n🟡 Gelb: Küche\n\n**Pflege:** Bei 60°C ohne Weichspüler waschen. So bleiben sie jahrelang effektiv!",
+    "imageURL": null,
+    "category": "Spiegel",
+    "tags": ["Werkzeug", "Hygiene", "Pro-Tipp"],
+    "estimatedReadTime": 40
+  },
+  {
+    "id": "learn-005",
+    "title": "Natürliche Reiniger selbst machen",
+    "content": "**Allzweck-Reiniger:**\n• 500ml Wasser\n• 2 EL Essig\n• 1 TL Spülmittel\n• Optional: 5 Tropfen ätherisches Öl\n\n**Glas-Reiniger:**\n• 250ml Wasser\n• 250ml Alkohol (mind. 40%)\n• 1 EL Essig\n\n**Vorteil:** Günstig, umweltfreundlich, genauso effektiv!",
+    "imageURL": null,
+    "category": "Spiegel",
+    "tags": ["DIY", "Öko", "Rezept"],
+    "estimatedReadTime": 60
+  },
+  {
+    "id": "learn-006",
+    "title": "Die 2-Minuten-Regel",
+    "content": "**Prinzip:**\nWenn eine Aufgabe weniger als 2 Minuten dauert, mach sie SOFORT!\n\n**Beispiele:**\n✓ Bett machen\n✓ Geschirr in Spülmaschine räumen\n✓ Kleider aufhängen\n✓ Oberflächen abwischen\n\n**Effekt:** Verhindert Ansammlungen und reduziert großen Putzaufwand!",
+    "imageURL": null,
+    "category": "Zimmer",
+    "tags": ["Produktivität", "Habit", "Methode"],
+    "estimatedReadTime": 45
+  },
+  {
+    "id": "learn-007",
+    "title": "Kalk effektiv entfernen",
+    "content": "**Bei leichten Ablagerungen:**\nEssig pur auftragen, 10 Min. einwirken, abspülen.\n\n**Bei starken Ablagerungen:**\n1. Küchenrolle in Essig tränken\n2. Auf betroffene Stellen legen\n3. 30-60 Min. einwirken lassen\n4. Abwischen und nachspülen\n\n**Vorbeugung:** Wöchentlich mit Essigwasser nachwischen!",
+    "imageURL": null,
+    "category": "Toilette",
+    "tags": ["Problem", "Lösung", "Kalk"],
+    "estimatedReadTime": 50
+  },
+  {
+    "id": "learn-008",
+    "title": "Zeitmanagement beim Putzen",
+    "content": "**Die Pomodoro-Methode fürs Putzen:**\n\n🍅 **25 Min:** Konzentriertes Putzen\n☕ **5 Min:** Pause\n🍅 **25 Min:** Nächster Bereich\n☕ **5 Min:** Pause\n\nNach 4 Durchgängen: 15-30 Min. große Pause\n\n**Vorteil:** Höhere Konzentration, weniger Erschöpfung!",
+    "imageURL": null,
+    "category": "Zimmer",
+    "tags": ["Zeitmanagement", "Produktivität", "Methode"],
+    "estimatedReadTime": 45
+  },
+  {
+    "id": "learn-009",
+    "title": "Streifenfreie Fenster garantiert",
+    "content": "**Profi-Trick:**\n\n1. Horizontal mit nassem Tuch\n2. Vertikal mit Abzieher\n3. Nachpolieren mit Zeitungspapier\n\n**Timing:** Nicht bei direkter Sonneneinstrahlung putzen! Der Reiniger trocknet zu schnell und hinterlässt Streifen.\n\n**Beste Zeit:** Bewölkter Tag oder Abend",
+    "imageURL": null,
+    "category": "Spiegel",
+    "tags": ["Fenster", "Technik", "Pro-Tipp"],
+    "estimatedReadTime": 40
+  },
+  {
+    "id": "learn-010",
+    "title": "Schimmel vorbeugen im Bad",
+    "content": "**Tägliche Routine:**\n✓ Nach dem Duschen Wände abziehen\n✓ Fenster 10 Min. öffnen (oder Lüfter)\n✓ Handtücher zum Trocknen ausbreiten\n\n**Wöchentlich:**\n✓ Fugen mit Essigwasser abwischen\n✓ Duschvorhang waschen/austauschen\n\n**Resultat:** Kein Schimmel, frischer Duft!",
+    "imageURL": null,
+    "category": "Toilette",
+    "tags": ["Prävention", "Bad", "Gesundheit"],
+    "estimatedReadTime": 50
+  },
+  {
+    "id": "learn-011",
+    "title": "Minimalismus im Haushalt",
+    "content": "**Die KonMari-Frage:**\n\"Macht es mich glücklich?\"\n\nWenn nein:\n• Nutze ich es regelmäßig?\n• Ist es praktisch notwendig?\n• Hat es sentimentalen Wert?\n\n**Regel:** Kommt etwas Neues rein, geht etwas Altes raus!\n\n**Effekt:** Weniger Zeug = weniger Aufräumarbeit = mehr Lebensqualität",
+    "imageURL": null,
+    "category": "Zimmer",
+    "tags": ["Minimalismus", "Philosophie", "Lifestyle"],
+    "estimatedReadTime": 55
+  },
+  {
+    "id": "learn-012",
+    "title": "Gerüche natürlich neutralisieren",
+    "content": "**Küche/Bad:**\n• Essig (absorbiert Gerüche)\n• Kaffeesatz (bindet Gerüche)\n• Zitronenschalen (frischer Duft)\n\n**Textilien:**\n• Natron ins Waschfach\n• Lufttrocknen in der Sonne\n\n**Räume:**\n• Regelmäßig lüften (3x täglich)\n• Zimmerpflanzen (Luftreiniger)\n\n**Chemie-frei und effektiv!**",
+    "imageURL": null,
+    "category": "Zimmer",
+    "tags": ["Geruch", "Natürlich", "DIY"],
+    "estimatedReadTime": 50
+  },
+  {
+    "id": "learn-013",
+    "title": "Motivation langfristig halten",
+    "content": "**Strategien:**\n\n🎯 **Kleine Ziele:** Nicht \"ganzes Haus\", sondern \"ein Zimmer\"\n📸 **Vorher/Nachher:** Dokumentiere Erfolge (wie in dieser App!)\n🎁 **Belohnungen:** Nach jeder Challenge etwas Schönes gönnen\n👥 **Accountability:** Anderen von Zielen erzählen\n\n**Wichtig:** Fortschritt > Perfektion!",
+    "imageURL": null,
+    "category": "Zimmer",
+    "tags": ["Motivation", "Psychologie", "Habits"],
+    "estimatedReadTime": 60
+  },
+  {
+    "id": "learn-014",
+    "title": "Häufige Putzfehler vermeiden",
+    "content": "**Top 5 Fehler:**\n\n❌ Zu viel Reiniger verwenden\n❌ Von unten nach oben putzen\n❌ Schmutzige Tücher wiederverwenden\n❌ Bei direkter Sonne Fenster putzen\n❌ Verschiedene Bereiche mit gleichem Tuch\n\n**Besser:**\n✓ Sparsam dosieren\n✓ Immer von oben nach unten\n✓ Frische Tücher verwenden\n✓ Im Schatten arbeiten\n✓ Separate Tücher pro Bereich",
+    "imageURL": null,
+    "category": "Spiegel",
+    "tags": ["Fehler", "Lernen", "Basics"],
+    "estimatedReadTime": 55
+  },
+  {
+    "id": "learn-015",
+    "title": "Allergiker-freundlich putzen",
+    "content": "**Reduktion von Allergenen:**\n\n🧹 **HEPA-Filter:** Bei Staubsauger verwenden\n🧽 **Feucht wischen:** Bindet Staub statt aufzuwirbeln\n🌿 **Natürliche Reiniger:** Keine Duftstoffe\n🪟 **Regelmäßig lüften:** Frische Luft reduziert Allergene\n\n**Tipp:** Staubsaugen mit Maske, wenn stark betroffen!",
+    "imageURL": null,
+    "category": "Zimmer",
+    "tags": ["Gesundheit", "Allergie", "Tipps"],
+    "estimatedReadTime": 50
+  },
+  {
+    "id": "learn-016",
+    "title": "Nachhaltig putzen",
+    "content": "**Umweltfreundliche Alternativen:**\n\n♻️ **Wiederverwendbar:**\nMikrofasertücher statt Papier\n\n🌱 **Natürlich:**\nEssig, Natron, Zitrone statt Chemie\n\n💧 **Wassersparend:**\nSprühflaschen statt volle Eimer\n\n📦 **Nachfüllbar:**\nKonzentrate statt Einwegflaschen\n\n**Für unseren Planeten!** 🌍",
+    "imageURL": null,
+    "category": "Spiegel",
+    "tags": ["Nachhaltigkeit", "Öko", "Umwelt"],
+    "estimatedReadTime": 45
+  },
+  {
+    "id": "learn-017",
+    "title": "Die Psychologie der Ordnung",
+    "content": "**Warum Ordnung glücklich macht:**\n\n🧠 **Weniger mentale Last:** Jedes unerledigte sorgt für kognitiven Stress\n✨ **Mehr Kontrolle:** Ordnung gibt Gefühl der Selbstwirksamkeit\n⚡ **Höhere Produktivität:** Weniger Suchen, mehr Zeit\n😌 **Besserer Schlaf:** Aufgeräumtes Schlafzimmer = ruhiger Geist\n\n**Ordnung ist Self-Care!**",
+    "imageURL": null,
+    "category": "Zimmer",
+    "tags": ["Psychologie", "Wohlbefinden", "Mindset"],
+    "estimatedReadTime": 55
+  },
+  {
+    "id": "learn-018",
+    "title": "Blitzblank in 15 Minuten",
+    "content": "**Express-Routine für Überraschungsbesuch:**\n\n**Min 1-3:** Bad (Toilette, Waschbecken, Spiegel)\n**Min 4-7:** Küche (Geschirr weg, Oberflächen)\n**Min 8-12:** Wohnzimmer (aufräumen, durchsaugen)\n**Min 13-15:** Lüften, Licht checken, letzte Touches\n\n**Tipp:** Musik an für Extra-Motivation! 🎵",
+    "imageURL": null,
+    "category": "Zimmer",
+    "tags": ["Speed", "Routine", "Notfall"],
+    "estimatedReadTime": 45
+  },
+  {
+    "id": "learn-019",
+    "title": "Hartnäckige Flecken entfernen",
+    "content": "**Flecken-Guide:**\n\n**Kalk:** Essig oder Zitronensäure\n**Fett:** Spülmittel + warmes Wasser\n**Rost:** Zitrone + Salz\n**Seifenreste:** Essig pur\n**Verfärbungen:** Backpulver-Paste\n\n**Goldene Regel:** Je frischer der Fleck, desto leichter zu entfernen. Sofort handeln!",
+    "imageURL": null,
+    "category": "Toilette",
+    "tags": ["Flecken", "Problem", "Lösung"],
+    "estimatedReadTime": 50
+  },
+  {
+    "id": "learn-020",
+    "title": "Putzplan erstellen",
+    "content": "**Tägliche Tasks:**\n• Bett machen\n• Küche aufräumen\n• Oberflächen abwischen\n\n**Wöchentliche Tasks:**\n• Staubsaugen\n• Bad putzen\n• Müll rausbringen\n\n**Monatliche Tasks:**\n• Fenster putzen\n• Kühlschrank ausmisten\n• Schränke aufräumen\n\n**App nutzen:** Tracke deinen Fortschritt hier!",
+    "imageURL": null,
+    "category": "Zimmer",
+    "tags": ["Planung", "Organisation", "Routine"],
+    "estimatedReadTime": 55
+  }
+]
