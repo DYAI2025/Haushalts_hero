@@ -1,0 +1,101 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - '.github/workflows/docs-deploy.yml'
+  workflow_dispatch:  # Allow manual trigger
+
+# Prevent concurrent deployments
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+# Required permissions for GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Build documentation site
+        run: |
+          mkdir -p ./build
+
+          # Create index.html
+          cat > ./build/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="de">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Haushalts-Hero Dokumentation</title>
+              <style>
+                  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+                  h1 { color: #2c3e50; }
+                  .docs-list { list-style: none; padding: 0; }
+                  .docs-list li { margin: 10px 0; }
+                  .docs-list a { color: #3498db; text-decoration: none; font-size: 1.1em; }
+                  .docs-list a:hover { text-decoration: underline; }
+              </style>
+          </head>
+          <body>
+              <h1>🏠 Haushalts-Hero Dokumentation</h1>
+              <p>iOS App für motivierende Haushaltsreinigung mit AI-Scoring</p>
+              <h2>📚 Verfügbare Dokumente</h2>
+              <ul class="docs-list">
+                  <li>📖 <a href="README.html">README - Projektübersicht</a></li>
+                  <li>🏗️ <a href="frontend_scope.html">Frontend Scope - Architektur & Requirements</a></li>
+                  <li>🎨 <a href="multimedia_enhancement_plan.html">Multimedia Enhancement Plan</a></li>
+              </ul>
+          </body>
+          </html>
+          EOF
+
+          # Convert markdown to HTML (simple conversion)
+          if command -v pandoc &> /dev/null; then
+            pandoc README.md -o ./build/README.html --standalone --metadata title="Haushalts-Hero README"
+            pandoc docs/frontend_scope.md -o ./build/frontend_scope.html --standalone --metadata title="Frontend Scope"
+            pandoc docs/multimedia_enhancement_plan.md -o ./build/multimedia_enhancement_plan.html --standalone --metadata title="Multimedia Plan"
+          else
+            # Fallback: just copy markdown files
+            cp README.md ./build/
+            cp docs/*.md ./build/
+          fi
+
+          # Verify build output exists
+          ls -la ./build/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 5
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
