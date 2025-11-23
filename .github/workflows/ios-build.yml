@@ -59,9 +59,63 @@ jobs:
             -project HaushaltsHero.xcodeproj \
             -scheme HaushaltsHero \
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            -resultBundlePath TestResults/HaushaltsHero.xcresult \
+            -enableCodeCoverage YES \
             CODE_SIGNING_ALLOWED=NO \
-            | xcpretty || true
+            | tee test-output.log \
+            | xcpretty --test --color
         timeout-minutes: 10
+        continue-on-error: false
+
+      - name: Generate Test Summary
+        if: always()
+        run: |
+          cd HaushaltsHero
+          if [ -f test-output.log ]; then
+            echo "## 🧪 Test Summary" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            # Extract test count
+            TESTS_RUN=$(grep -o "Executed [0-9]* tests" test-output.log | grep -o "[0-9]*" || echo "0")
+            TESTS_PASSED=$(grep -o "with [0-9]* failures" test-output.log | grep -o "[0-9]*" || echo "0")
+
+            echo "**Tests Run:** $TESTS_RUN" >> $GITHUB_STEP_SUMMARY
+            echo "**Tests Passed:** $(($TESTS_RUN - $TESTS_PASSED))" >> $GITHUB_STEP_SUMMARY
+            echo "**Tests Failed:** $TESTS_PASSED" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            if [ "$TESTS_PASSED" -eq "0" ]; then
+              echo "✅ **All tests passed!**" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "❌ **Some tests failed!**" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+
+      - name: Generate Code Coverage Report
+        if: always()
+        run: |
+          cd HaushaltsHero
+          if [ -d "TestResults/HaushaltsHero.xcresult" ]; then
+            xcrun xccov view --report --json TestResults/HaushaltsHero.xcresult > coverage.json || true
+
+            if [ -f coverage.json ]; then
+              echo "## 📊 Code Coverage" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+
+              # Extract coverage percentage (simplified)
+              COVERAGE=$(cat coverage.json | grep -o '"lineCoverage":[0-9.]*' | head -1 | grep -o '[0-9.]*' || echo "0")
+              COVERAGE_PERCENT=$(echo "$COVERAGE * 100" | bc -l | xargs printf "%.1f")
+
+              echo "**Line Coverage:** ${COVERAGE_PERCENT}%" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+
+              if (( $(echo "$COVERAGE_PERCENT >= 80" | bc -l) )); then
+                echo "✅ Coverage is above 80% target!" >> $GITHUB_STEP_SUMMARY
+              else
+                echo "⚠️ Coverage is below 80% target." >> $GITHUB_STEP_SUMMARY
+              fi
+            fi
+          fi
 
       - name: Upload Test Results
         if: always()
@@ -70,6 +124,41 @@ jobs:
           name: test-results
           path: |
             HaushaltsHero/TestResults
-            HaushaltsHero/DerivedData/Logs
+            HaushaltsHero/test-output.log
+            HaushaltsHero/coverage.json
           retention-days: 7
           if-no-files-found: ignore
+
+      - name: Comment Test Results on PR
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let comment = '## 🧪 iOS Test Results\n\n';
+
+            try {
+              const log = fs.readFileSync('HaushaltsHero/test-output.log', 'utf8');
+              const testsRun = (log.match(/Executed (\d+) tests/) || [])[1] || '0';
+              const failures = (log.match(/with (\d+) failures/) || [])[1] || '0';
+              const passed = parseInt(testsRun) - parseInt(failures);
+
+              comment += `**Tests Run:** ${testsRun}\n`;
+              comment += `**Tests Passed:** ${passed}\n`;
+              comment += `**Tests Failed:** ${failures}\n\n`;
+
+              if (failures === '0') {
+                comment += '✅ **All tests passed!**\n';
+              } else {
+                comment += '❌ **Some tests failed!**\n';
+              }
+            } catch (e) {
+              comment += '⚠️ Could not parse test results.\n';
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
