@@ -1,0 +1,189 @@
+// Prisma Schema for Haushalts-Hero Backend
+// Database: SQLite (Development) / PostgreSQL (Production)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// User Model
+// ============================================
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  challenges   Challenge[]
+  quests       Quest[]
+  goals        Goal[]
+  weeklyStats  WeeklyStats[]
+  settings     UserSettings?
+  refreshTokens RefreshToken[]
+  photos       Photo[]
+
+  @@map("users")
+}
+
+// ============================================
+// Challenge Model
+// ============================================
+
+model Challenge {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Challenge details
+  category        String   // mirror, toilet, room
+  beforePhotoUrl  String
+  afterPhotoUrl   String
+  timestamp       DateTime @default(now())
+
+  // Score data
+  overallScore    Int
+  subscores       String   // JSON array of subscores
+  confidence      Float
+  explanation     String
+  heatmapData     String?  // JSON optional heatmap data
+
+  createdAt       DateTime @default(now())
+
+  @@index([userId])
+  @@index([timestamp])
+  @@map("challenges")
+}
+
+// ============================================
+// Quest Model
+// ============================================
+
+model Quest {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title           String
+  description     String
+  category        String?
+  targetCount     Int
+  currentProgress Int      @default(0)
+  rewardPoints    Int
+  weekStart       DateTime
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+  @@index([weekStart])
+  @@map("quests")
+}
+
+// ============================================
+// Goal Model
+// ============================================
+
+model Goal {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title         String
+  targetPoints  Int
+  currentPoints Int      @default(0)
+  weekStart     DateTime
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([weekStart])
+  @@map("goals")
+}
+
+// ============================================
+// WeeklyStats Model
+// ============================================
+
+model WeeklyStats {
+  id                  String   @id @default(uuid())
+  userId              String
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  weekStart           DateTime
+  challengesCompleted Int
+  averageScore        Float
+  categoryCounts      String   // JSON object: { mirror: 5, toilet: 3, room: 2 }
+  totalPoints         Int
+
+  createdAt           DateTime @default(now())
+
+  @@index([userId])
+  @@index([weekStart])
+  @@unique([userId, weekStart])
+  @@map("weekly_stats")
+}
+
+// ============================================
+// UserSettings Model
+// ============================================
+
+model UserSettings {
+  id                    String   @id @default(uuid())
+  userId                String   @unique
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  enableHapticFeedback  Boolean  @default(true)
+  enableSoundEffects    Boolean  @default(true)
+  showHeatmapByDefault  Boolean  @default(false)
+
+  updatedAt             DateTime @updatedAt
+
+  @@map("user_settings")
+}
+
+// ============================================
+// Photo Model
+// ============================================
+
+model Photo {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  url       String
+  path      String   // Local path or S3 path
+  size      Int      // bytes
+  mimeType  String
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("photos")
+}
+
+// ============================================
+// RefreshToken Model (for JWT revocation)
+// ============================================
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([token])
+  @@map("refresh_tokens")
+}
