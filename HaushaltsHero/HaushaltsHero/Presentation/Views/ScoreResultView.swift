@@ -16,6 +16,7 @@ struct ScoreResultView: View {
     @EnvironmentObject var container: AppContainer
     @State private var showSubscores = false
     @State private var showMicroLearning = false
+    @State private var showConfetti = false
 
     // MARK: - Body
 
@@ -26,8 +27,24 @@ struct ScoreResultView: View {
                 if viewModel.isProcessing {
                     ProcessingView()
                 } else if let score = viewModel.currentScore {
+                    // Hero Character (reacts to score)
+                    HeroCharacterView(
+                        emotion: HeroEmotion.forScore(score.overallScore),
+                        size: 140,
+                        showSpeechBubble: true
+                    )
+                    .padding(.top)
+
                     // Score Display
                     ScoreHeader(score: score)
+                        .onAppear {
+                            // Trigger confetti for high scores
+                            if score.overallScore >= 85 {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    showConfetti = true
+                                }
+                            }
+                        }
 
                     // Heatmap (if available)
                     if let afterImage = viewModel.afterImage, score.heatmapData != nil {
@@ -99,6 +116,7 @@ struct ScoreResultView: View {
         .sheet(isPresented: $showMicroLearning) {
             MicroLearningView(repository: container.repository)
         }
+        .confetti(isPresented: $showConfetti, duration: 3.0)
     }
 }
 

@@ -13,6 +13,7 @@ struct SettingsView: View {
     // MARK: - Properties
 
     @StateObject private var viewModel: SettingsViewModel
+    @ObservedObject var audioManager = AudioManager.shared
     @Environment(\.dismiss) var dismiss
     @State private var showPrivacy = false
 
@@ -27,13 +28,42 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             List {
-                // Current Features Section
+                // Audio & Feedback Section
                 Section {
-                    Toggle("Haptic Feedback", isOn: $viewModel.enableHapticFeedback)
-                    Toggle("Sound Effects", isOn: $viewModel.enableSoundEffects)
+                    Toggle("Sound-Effekte", isOn: $audioManager.soundEffectsEnabled)
+                        .onChange(of: audioManager.soundEffectsEnabled) { newValue in
+                            if newValue {
+                                audioManager.playFeedback(sound: .toggle, haptic: .light)
+                            }
+                        }
+
+                    Toggle("Hintergrundmusik", isOn: $audioManager.musicEnabled)
+                        .onChange(of: audioManager.musicEnabled) { newValue in
+                            if newValue {
+                                audioManager.playMusic(.ambient)
+                                audioManager.triggerHaptic(.light)
+                            } else {
+                                audioManager.stopMusic(fadeOut: true)
+                            }
+                        }
+
+                    Toggle("Haptisches Feedback", isOn: $audioManager.hapticEnabled)
+                        .onChange(of: audioManager.hapticEnabled) { newValue in
+                            if newValue {
+                                audioManager.triggerHaptic(.medium)
+                            }
+                        }
+                } header: {
+                    Text("🔊 Audio & Haptik")
+                } footer: {
+                    Text("Sound-Effekte und haptisches Feedback verbessern das Nutzererlebnis.")
+                }
+
+                // Visual Settings Section
+                Section {
                     Toggle("Heatmap standardmäßig anzeigen", isOn: $viewModel.showHeatmapByDefault)
                 } header: {
-                    Text("Aktuelle Features")
+                    Text("👁️ Visuelle Einstellungen")
                 }
 
                 // Future Features Section

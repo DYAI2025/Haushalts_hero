@@ -29,6 +29,7 @@ class ChallengeViewModel: ObservableObject {
 
     private let repository: AppRepository
     private let scoringEngine: ScoringEngine
+    private let audioManager = AudioManager.shared
 
     // MARK: - Initialization
 
@@ -54,17 +55,27 @@ class ChallengeViewModel: ObservableObject {
         selectedCategory = category
         flowState = .beforePhoto
         reset()
+
+        // Audio & Haptic feedback
+        audioManager.playFeedback(sound: .buttonPress, haptic: .medium)
     }
 
     /// Capture the "before" photo
     func captureBeforePhoto(_ image: UIImage) {
         beforeImage = image
         flowState = .afterPhoto
+
+        // Audio & Haptic feedback
+        audioManager.playFeedback(sound: .photoCapture, haptic: .medium)
     }
 
     /// Capture the "after" photo
     func captureAfterPhoto(_ image: UIImage) {
         afterImage = image
+
+        // Audio & Haptic feedback
+        audioManager.playFeedback(sound: .photoCapture, haptic: .medium)
+
         Task {
             await processChallenge()
         }
@@ -81,6 +92,9 @@ class ChallengeViewModel: ObservableObject {
 
         isProcessing = true
         flowState = .processing
+
+        // Play scoring sound
+        audioManager.playSound(.scoreCalculating)
 
         do {
             // Save photos
@@ -115,9 +129,23 @@ class ChallengeViewModel: ObservableObject {
             currentScore = score
             flowState = .result
 
+            // Audio & Haptic feedback based on score
+            audioManager.playSound(.scoreReveal)
+            audioManager.triggerHaptic(.scoreReveal(score: score.overallScore))
+
+            // Additional feedback for high scores
+            if score.overallScore >= 85 {
+                // Small delay for effect
+                try? await Task.sleep(nanoseconds: 300_000_000) // 0.3s
+                audioManager.playFeedback(sound: .success, haptic: .success)
+            }
+
         } catch {
             errorMessage = "Fehler beim Verarbeiten: \(error.localizedDescription)"
             flowState = .result
+
+            // Error feedback
+            audioManager.playFeedback(sound: .error, haptic: .error)
         }
 
         isProcessing = false
@@ -130,6 +158,9 @@ class ChallengeViewModel: ObservableObject {
         afterImage = nil
         currentScore = nil
         errorMessage = nil
+
+        // Audio feedback
+        audioManager.playFeedback(sound: .buttonTap, haptic: .light)
     }
 
     /// Complete the challenge and return to start
@@ -137,6 +168,9 @@ class ChallengeViewModel: ObservableObject {
         reset()
         flowState = .categorySelection
         selectedCategory = nil
+
+        // Audio feedback
+        audioManager.playFeedback(sound: .buttonTap, haptic: .light)
     }
 
     /// Reset the challenge state
